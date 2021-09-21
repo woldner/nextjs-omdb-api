@@ -1,5 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 const { API_KEY } = process.env
 
 export default function handler(req, res) {
