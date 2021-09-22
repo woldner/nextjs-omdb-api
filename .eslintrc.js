@@ -12,6 +12,6 @@ module.exports = {
     "prettier/prettier": ["error", {}, { usePrettierrc: true }],
     "no-unused-vars": ["warn", { argsIgnorePattern: "^_", ignoreRestSiblings: true }],
     "react/react-in-jsx-scope": "off",
-    "react/prop-types": ["error", { ignore: ["children", "Component", "pageProps"] }],
+    "react/prop-types": ["error", { ignore: ["Component", "children", "emotionCache", "pageProps"] }],
   },
 }
