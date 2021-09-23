@@ -1,3 +1,4 @@
+import { useState } from "react"
 import FormControl from "@mui/material/FormControl"
 import InputLabel from "@mui/material/InputLabel"
 import OutlinedInput from "@mui/material/OutlinedInput"
@@ -6,6 +7,18 @@ import IconButton from "@mui/material/IconButton"
 import SearchIcon from "@mui/icons-material/Search"
 
 const Search = () => {
+  const [value, setValue] = useState()
+
+  const handleChange = (event) => {
+    setValue(event.target.value)
+  }
+
+  const handleClick = async () => {
+    const response = await fetch(`/api/movies?term=${value}`)
+
+    console.log({ response })
+  }
+
   return (
     <>
       <FormControl variant="outlined" fullWidth>
@@ -13,16 +26,10 @@ const Search = () => {
         <OutlinedInput
           id="search-term"
           type="text"
-          // value={values.password}
-          // onChange={handleChange("password")}
+          onChange={handleChange}
           endAdornment={
             <InputAdornment position="end">
-              <IconButton
-                aria-label="search movies"
-                onClick={() => console.log("clicked")}
-                // onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
+              <IconButton aria-label="search for movies" onClick={handleClick} edge="end">
                 <SearchIcon />
               </IconButton>
             </InputAdornment>

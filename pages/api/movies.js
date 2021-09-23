@@ -1,10 +1,10 @@
 const { API_KEY } = process.env
 
-const handler = async ({ body }, res) => {
-  const { title } = body
+const handler = async ({ query }, res) => {
+  const { term } = query
 
   try {
-    const response = await fetch(`http://omdbapi.com/?apikey=${API_KEY}&t=${title}`)
+    const response = await fetch(`http://omdbapi.com?apikey=${API_KEY}&s=${term}`)
     const result = await response.json()
 
     res.status(200).json(result)
