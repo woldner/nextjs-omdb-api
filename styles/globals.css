@@ -17,6 +17,7 @@ body,
 }
 
 #__next {
+  background-color: rgb(234, 238, 243);
   display: flex;
   flex-direction: column;
 }
