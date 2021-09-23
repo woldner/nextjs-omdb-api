@@ -5,16 +5,14 @@ import Search from "@/components/search"
 
 const Home = () => {
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Next.js example
+          Next.js OMDb api
         </Typography>
       </Box>
 
-      <Box>
-        <Search />
-      </Box>
+      <Search />
     </Container>
   )
 }
