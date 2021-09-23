@@ -1,42 +1,57 @@
 import { useState } from "react"
-import FormControl from "@mui/material/FormControl"
-import InputLabel from "@mui/material/InputLabel"
-import OutlinedInput from "@mui/material/OutlinedInput"
-import InputAdornment from "@mui/material/InputAdornment"
+import Box from "@mui/material/Box"
+import Paper from "@mui/material/Paper"
+import InputBase from "@mui/material/InputBase"
+import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import SearchIcon from "@mui/icons-material/Search"
+import List from "@/components/list"
 
 const Search = () => {
-  const [value, setValue] = useState()
+  const [value, setValue] = useState("")
+  const [items, setItems] = useState([])
 
   const handleChange = (event) => {
     setValue(event.target.value)
   }
 
-  const handleClick = async () => {
-    const response = await fetch(`/api/movies?term=${value}`)
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
-    console.log({ response })
+    try {
+      const response = await fetch(`api/movies?term=${encodeURIComponent(value)}`)
+      const { Search } = await response.json()
+
+      Search ? setItems(Search) : setItems([])
+    } catch (error) {
+      console.error("unable to fetch movies")
+      console.error(error)
+
+      setItems([])
+    }
   }
 
   return (
     <>
-      <FormControl variant="outlined" fullWidth>
-        <InputLabel htmlFor="search-term">Search</InputLabel>
-        <OutlinedInput
-          id="search-term"
-          type="text"
-          onChange={handleChange}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton aria-label="search for movies" onClick={handleClick} edge="end">
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Search"
-        />
-      </FormControl>
+      <Box sx={{ my: 4 }}>
+        <Paper component="form" sx={{ p: "2px 4px", display: "flex", alignItems: "center" }} onSubmit={handleSubmit}>
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search for movies"
+            onChange={handleChange}
+            inputProps={{ "aria-label": "search for movies" }}
+          />
+
+          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+          <IconButton type="submit" aria-label="search for movies" sx={{ p: "10px" }}>
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+      </Box>
+
+      <Box sx={{ my: 4 }}>
+        <List items={items} />
+      </Box>
     </>
   )
 }
