@@ -6,23 +6,29 @@ import CardContent from "@mui/material/CardContent"
 import Typography from "@mui/material/Typography"
 
 const List = ({ items }) => {
+  if (items.length === 0) {
+    return (
+      <Typography gutterBottom variant="h5" component="p">
+        No results to display
+      </Typography>
+    )
+  }
+
   return (
-    <>
-      <Grid container spacing={2}>
-        {items.map((item, index) => (
-          <Grid key={index} item xs={12} sm={6} md={3}>
-            <Card>
-              <CardMedia component="img" height="140" image={item.Poster} />
-              <CardContent sx={{ minHeight: "160px" }}>
-                <Typography gutterBottom variant="h5" component="div">
-                  {item.Title} ({item.Year})
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </>
+    <Grid container spacing={2}>
+      {items.map((item, index) => (
+        <Grid key={index} item xs={12} sm={6} md={3}>
+          <Card>
+            <CardMedia component="img" height="140" image={item.Poster} />
+            <CardContent sx={{ minHeight: "160px" }}>
+              <Typography gutterBottom variant="h5" component="div">
+                {item.Title} ({item.Year})
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
   )
 }
 
